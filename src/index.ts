@@ -5,10 +5,6 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
-
 app.get('/data', async (c) =>{
   const AllData = await prisma.meetings.findMany({});
   return c.json({AllData});
@@ -24,6 +20,10 @@ app.post('/', async (c)=>{
     }
   }) 
   return c.json({data});
+})
+
+app.get('/', (c) => {
+  return c.text('Hello Hono!')
 })
 
 const port = 3000
